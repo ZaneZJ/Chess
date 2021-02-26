@@ -55,12 +55,6 @@ public class Game {
 
         while (stopTheGame == false) {
 
-            /**
-             *
-             *  Insert what you want to move
-             *
-             */
-
             if (playerTurn == Values.WHITE) {
                 System.out.println();
                 System.out.println("White players turn!");
@@ -70,101 +64,70 @@ public class Game {
             }
 
             // Insert column :
-            while (true) {
-                Scanner insertC1 = new Scanner(System.in);
-                System.out.print("Column of the piece that you want to move: ");
-                String c1 = insertC1.nextLine();
-                if (c1.length() > 1) {
-                    System.out.println();
-                    System.out.println("Invalid input! Try Again");
-                } else {
-                    fromCol = c1.charAt(0);
-                    if (fromCol >= Values.LOWERCASE_A && fromCol <= Values.LOWERCASE_H) {
-                        fromCol = fromCol - Values.LOWERCASE_A + 1;
-                        break;
-                    } else if (fromCol >= Values.UPPERCASE_A && fromCol <= Values.UPPERCASE_H) {
-                        fromCol = fromCol - Values.UPPERCASE_A + 1;
-                        break;
-                    } else {
-                        System.out.println();
-                        System.out.println("Invalid input! Try Again");
-                    }
-                }
-            }
-            fromCol -= 1;
+            fromCol = inputCol("Column of the piece that you want to move: ");
 
             // Insert row :
-            while (true) {
-                Scanner insertR1 = new Scanner(System.in);
-                System.out.print("Row of the piece that you want to move: ");
-                String r1 = insertR1.nextLine();
-                if (r1.length() > 1) {
-                    System.out.println();
-                    System.out.println("Invalid input!");
-                } else {
-                    fromRow = r1.charAt(0) - Values.ASCI_1 + 1;
-                    if (fromRow < 1 || fromRow > Values.ROWS) {
-                        System.out.println();
-                        System.out.println("Invalid input!");
-                    } else {
-                        break;
-                    }
-                }
-            }
-            fromRow -= 1;
-
-            /**
-             *
-             *  Insert where you want to move
-             *
-             */
+            fromRow = inputRow("Row of the piece that you want to move: ");
 
             // Insert column :
-            while (true) {
-                Scanner insertC2 = new Scanner(System.in);
-                System.out.print("Column where you want to move the piece: ");
-                String c2 = insertC2.nextLine();
-                if (c2.length() > 1) {
-                    System.out.println("Invalid input!");
-                } else {
-                    toCol = c2.charAt(0);
-                    if (toCol >= Values.LOWERCASE_A && toCol <= Values.LOWERCASE_H) {
-                        toCol = toCol - Values.LOWERCASE_A + 1;
-                        break;
-                    } else if (toCol >= Values.UPPERCASE_A && toCol <= Values.UPPERCASE_H) {
-                        toCol = toCol - Values.UPPERCASE_A + 1;
-                        break;
-                    } else {
-                        System.out.println("Invalid input!");
-                    }
-                }
-            }
-            toCol -= 1;
+            toCol = inputCol("Column where you want to move the piece: ");
 
             // Insert row :
-            while (true) {
-                Scanner insertR2 = new Scanner(System.in);
-                System.out.print("Row where you want to move the piece: ");
-                String r2 = insertR2.nextLine();
-                if (r2.length() > 1) {
-                    System.out.println();
-                    System.out.println("Invalid input!");
-                } else {
-                    toRow = r2.charAt(0) - Values.ASCI_1 + 1;
-                    if (toRow < 1 || toRow > Values.ROWS) {
-                        System.out.println("Invalid input!");
-                    } else {
-                        break;
-                    }
-                }
-            }
-            toRow -= 1;
+            toRow = inputRow("Row where you want to move the piece: ");
 
             pieces.grid(fromRow, fromCol, toRow, toCol);
             print();
             isGameOver();
 
         }
+    }
+
+    private int inputCol(String message) {
+        int col;
+        while (true) {
+            Scanner insert = new Scanner(System.in);
+            System.out.print(message);
+            String c = insert.nextLine();
+            if (c.length() > 1) {
+                System.out.println("Invalid input!");
+            } else {
+                col = c.charAt(0);
+                if (col >= Values.LOWERCASE_A && col <= Values.LOWERCASE_H) {
+                    col = col - Values.LOWERCASE_A + 1;
+                    break;
+                } else if (col >= Values.UPPERCASE_A && col <= Values.UPPERCASE_H) {
+                    col = col - Values.UPPERCASE_A + 1;
+                    break;
+                } else {
+                    System.out.println("Invalid input!");
+                }
+            }
+        }
+        col -= 1;
+        return col;
+    }
+
+    private int inputRow(String message) {
+        int row;
+        while (true) {
+            Scanner insert = new Scanner(System.in);
+            System.out.print(message);
+            String r = insert.nextLine();
+            if (r.length() > 1) {
+                System.out.println();
+                System.out.println("Invalid input!");
+            } else {
+                row = r.charAt(0) - Values.ASCI_1 + 1;
+                if (row < 1 || row > Values.ROWS) {
+                    System.out.println();
+                    System.out.println("Invalid input!");
+                } else {
+                    break;
+                }
+            }
+        }
+        row -= 1;
+        return row;
     }
 
     public void isGameOver() {
