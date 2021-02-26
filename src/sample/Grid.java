@@ -1,45 +1,81 @@
 package sample;
 
+import java.util.Scanner;
+
 public class Grid {
 
-    public static void grid(int fromRow, int fromCol, int toRow, int toCol) {
+    public String[][] chessGrid = {
+            { "wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR" },
+            { "wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP" },
+            { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+            { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+            { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+            { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+            { "bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP" },
+            { "bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR" }
+    };
 
-        General general = new General();
+    public static boolean isWhite(String piece) {
+
+        if (piece.charAt(0) == Values.WHITE) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isBlack(String piece) {
+
+        if (piece.charAt(0) == Values.BLACK) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isColor(String piece, char color) {
+
+        if (color == Values.WHITE) {
+            return isWhite(piece);
+        } else if (color == Values.BLACK) {
+            return isBlack(piece);
+        }
+        return false;
+    }
+
+    public char getPiece(String piece) {
+
+        return piece.charAt(1);
+    }
+
+    public String createPiece(char color, char piece) {
+
+        String colorStr = Character.toString(color);
+        String pieceStr = Character.toString(piece);
+
+        String newPiece = colorStr + pieceStr;
+
+        return newPiece;
+    }
+
+    public void boardClear() {
+
         Game game = new Game();
-        Values values = new Values();
-        Pieces pieces = new Pieces();
 
-        char color = values.WHITE;
-        if (game.black == true) {
-            color = values.BLACK;
-        }
+        String[][] clearChessGrid = {
+                { "wR", "wN", "wB", "wQ", "wK", "wB", "wN", "wR" },
+                { "wP", "wP", "wP", "wP", "wP", "wP", "wP", "wP" },
+                { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+                { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+                { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+                { "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  " },
+                { "bP", "bP", "bP", "bP", "bP", "bP", "bP", "bP" },
+                { "bR", "bN", "bB", "bQ", "bK", "bB", "bN", "bR" }
+        };
 
-        if (!general.isColor(game.chessGrid[fromRow][fromCol], color)) {
-            System.out.println("You can't move enemies pieces!");
-            return;
-        }
-
-        switch (general.getPiece(game.chessGrid[fromRow][fromCol])) {
-            case 'B':
-                pieces.moveBishop(color, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'R':
-                pieces.moveRook(color, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'N':
-                pieces.moveKnight(color, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'Q':
-                pieces.moveQueen(color, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'K':
-                pieces.moveKing(color, fromRow, fromCol, toRow, toCol);
-                break;
-            case 'P':
-                pieces.movePawn(color, fromRow, fromCol, toRow, toCol);
-                break;
-            default:
-                System.out.println("There is no piece there!");
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                game.grid.chessGrid[i][j] = clearChessGrid[i][j];
+            }
         }
     }
+
 }

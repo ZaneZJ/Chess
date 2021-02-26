@@ -2,24 +2,24 @@ package sample;
 
 public class Values {
 
-    public char LOWERCASE_A = 97;
-    public char UPPERCASE_A = 65;
-    public char LOWERCASE_H = 104;
-    public char UPPERCASE_H = 72;
+    public static char LOWERCASE_A = 97;
+    public static char UPPERCASE_A = 65;
+    public static char LOWERCASE_H = 104;
+    public static char UPPERCASE_H = 72;
 
-    public int ASCI_1 = 49;
-    public int COLS = 8;
-    public int ROWS = 8;
+    public static int ASCI_1 = 49;
+    public static int COLS = 8;
+    public static int ROWS = 8;
 
-    public char WHITE = 'w';
-    public char BLACK = 'b';
-    public char ROOK = 'R';
-    public char KNIGHT = 'N';
-    public char BISHOP = 'B';
-    public char QUEEN = 'Q';
-    public char KING = 'K';
-    public char PAWN = 'P';
+    public static char WHITE = 'w';
+    public static char BLACK = 'b';
+    public static char ROOK = 'R';
+    public static char KNIGHT = 'N';
+    public static char BISHOP = 'B';
+    public static char QUEEN = 'Q';
+    public static char KING = 'K';
+    public static char PAWN = 'P';
 
-    public String EMPTY = "  ";
+    public static String EMPTY = "  ";
 
 }

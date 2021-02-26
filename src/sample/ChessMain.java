@@ -24,11 +24,10 @@ public class ChessMain {
 
     public static void main(String[] args) {
 
-        Print pr = new Print();
-        Move mo = new Move();
+        Game game = new Game();
 
-        pr.print();
-        mo.move();
+        game.print();
+        game.move();
 
     }
 
