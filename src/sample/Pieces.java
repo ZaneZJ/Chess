@@ -84,12 +84,71 @@ public class Pieces {
         if (game.grid.isColor(game.grid.chessGrid[toRow][toCol], color)) {
             System.out.println("You can't move on top on your own piece");
         } else {
+            // Castling from Rooks side
+            if (game.whiteKingNotMoved == true) {
+                if (game.whiteRookNotMovedA == true && fromCol == 0 && fromRow == 0 && toCol == 4 && toRow == 0) {
+                    if (game.grid.chessGrid[0][1] == Values.EMPTY && game.grid.chessGrid[0][2] == Values.EMPTY && game.grid.chessGrid[0][3] == Values.EMPTY) {
+                        game.grid.chessGrid[0][2] = game.grid.createPiece(color, Values.KING);
+                        game.grid.chessGrid[0][3] = game.grid.createPiece(color, Values.ROOK);
+                        game.whiteRookNotMovedA = false;
+                        game.whiteKingNotMoved = false;
+                        game.nextTurn();
+                        return;
+                    }
+                } else if (game.whiteRookNotMovedH == true && fromCol == 7 && fromRow == 0 && toCol == 4 && toRow == 0) {
+                    if (game.grid.chessGrid[0][5] == Values.EMPTY && game.grid.chessGrid[0][6] == Values.EMPTY) {
+                        game.grid.chessGrid[0][6] = game.grid.createPiece(color, Values.KING);
+                        game.grid.chessGrid[0][5] = game.grid.createPiece(color, Values.ROOK);
+                        game.whiteRookNotMovedH = false;
+                        game.whiteKingNotMoved = false;
+                        game.nextTurn();
+                        return;
+                    }
+                }
+            } else if (game.blackKingNotMoved == true) {
+                if (game.blackRookNotMovedA == true && fromCol == 0 && fromRow == 7 && toCol == 4 && toRow == 7) {
+                    if (game.grid.chessGrid[7][1] == Values.EMPTY && game.grid.chessGrid[7][2] == Values.EMPTY && game.grid.chessGrid[7][3] == Values.EMPTY) {
+                        game.grid.chessGrid[7][2] = game.grid.createPiece(color, Values.KING);
+                        game.grid.chessGrid[7][3] = game.grid.createPiece(color, Values.ROOK);
+                        game.blackRookNotMovedA = false;
+                        game.blackKingNotMoved = false;
+                        game.nextTurn();
+                        return;
+                    }
+                } else if (game.blackRookNotMovedH == true && fromCol == 7 && fromRow == 7 && toCol == 4 && toRow == 7) {
+                    if (game.grid.chessGrid[7][5] == Values.EMPTY && game.grid.chessGrid[7][6] == Values.EMPTY) {
+                        game.grid.chessGrid[7][6] = game.grid.createPiece(color, Values.KING);
+                        game.grid.chessGrid[7][5] = game.grid.createPiece(color, Values.ROOK);
+                        game.blackRookNotMovedH = false;
+                        game.blackKingNotMoved = false;
+                        game.nextTurn();
+                        return;
+                    }
+                }
+            }
             for (int changeI = -1; changeI <= 1; changeI += 2) {
                 int col = fromCol;
                 for (int row = fromRow + changeI; row < 8 && row >= 0; row += changeI) {
                     if (toRow == row && toCol == col) {
                         game.grid.chessGrid[fromRow][fromCol] = Values.EMPTY;
                         game.grid.chessGrid[toRow][toCol] = game.grid.createPiece(color, Values.ROOK);
+                        if (color == Values.WHITE) {
+                            if (fromCol == 0 && fromRow == 0) {
+                                game.whiteRookNotMovedA = false;
+//                                System.out.println("whiteRookNotMovedA");
+                            } else if (fromCol == 7 && fromRow == 0) {
+                                game.whiteRookNotMovedH = false;
+//                                System.out.println("whiteRookNotMovedH");
+                            }
+                        } else {
+                            if (fromCol == 0 && fromRow == 7) {
+                                game.blackRookNotMovedA = false;
+//                                System.out.println("blackRookNotMovedA");
+                            } else if (fromCol == 7 && fromRow == 7) {
+                                game.blackRookNotMovedH = false;
+//                                System.out.println("blackRookNotMovedH");
+                            }
+                        }
                         game.nextTurn();
                         return;
                     } else if (game.grid.chessGrid[row][col] != Values.EMPTY) {
@@ -103,6 +162,23 @@ public class Pieces {
                     if (toRow == row && toCol == col) {
                         game.grid.chessGrid[fromRow][fromCol] = Values.EMPTY;
                         game.grid.chessGrid[toRow][toCol] = game.grid.createPiece(color, Values.ROOK);
+                        if (color == Values.WHITE) {
+                            if (fromCol == 0 && fromRow == 0) {
+                                game.whiteRookNotMovedA = false;
+//                                System.out.println("whiteRookNotMovedA");
+                            } else if (fromCol == 7 && fromRow == 0) {
+                                game.whiteRookNotMovedH = false;
+//                                System.out.println("whiteRookNotMovedH");
+                            }
+                        } else {
+                            if (fromCol == 0 && fromRow == 7) {
+                                game.blackRookNotMovedA = false;
+//                                System.out.println("blackRookNotMovedA");
+                            } else if (fromCol == 7 && fromRow == 7) {
+                                game.blackRookNotMovedH = false;
+//                                System.out.println("blackRookNotMovedH");
+                            }
+                        }
                         game.nextTurn();
                         return;
                     } else if (game.grid.chessGrid[row][col] != Values.EMPTY) {
@@ -192,6 +268,13 @@ public class Pieces {
                         if ( toRow == row && toCol == col) {
                             game.grid.chessGrid[fromRow][fromCol] = Values.EMPTY;
                             game.grid.chessGrid[toRow][toCol] = game.grid.createPiece(color, Values.KING);
+                            if (color == Values.WHITE) {
+                                game.whiteKingNotMoved = false;
+//                                System.out.println("whiteKingNotMoved");
+                            } else {
+                                game.blackKingNotMoved = false;
+//                                System.out.println("blackKingNotMoved");
+                            }
                             game.nextTurn();
                             return;
                         }
@@ -205,6 +288,13 @@ public class Pieces {
                     if ( toRow == row && toCol == col) {
                         game.grid.chessGrid[fromRow][fromCol] = Values.EMPTY;
                         game.grid.chessGrid[toRow][toCol] = game.grid.createPiece(color, Values.KING);
+                        if (color == Values.WHITE) {
+                            game.whiteKingNotMoved = false;
+//                            System.out.println("whiteKingNotMoved");
+                        } else {
+                            game.blackKingNotMoved = false;
+//                            System.out.println("blackKingNotMoved");
+                        }
                         game.nextTurn();
                         return;
                     }
@@ -217,6 +307,13 @@ public class Pieces {
                     if ( toRow == row && toCol == col) {
                         game.grid.chessGrid[fromRow][fromCol] = Values.EMPTY;
                         game.grid.chessGrid[toRow][toCol] = game.grid.createPiece(color, Values.KING);
+                        if (color == Values.WHITE) {
+                            game.whiteKingNotMoved = false;
+//                            System.out.println("whiteKingNotMoved");
+                        } else {
+                            game.blackKingNotMoved = false;
+//                            System.out.println("blackKingNotMoved");
+                        }
                         game.nextTurn();
                         return;
                     }

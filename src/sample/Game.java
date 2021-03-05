@@ -11,6 +11,13 @@ public class Game {
     public Grid grid = new Grid();
     public Pieces pieces = new Pieces(this);
 
+    public boolean whiteKingNotMoved = true;
+    public boolean blackKingNotMoved = true;
+    public boolean whiteRookNotMovedA = true;
+    public boolean whiteRookNotMovedH = true;
+    public boolean blackRookNotMovedA = true;
+    public boolean blackRookNotMovedH = true;
+
     public void nextTurn() {
         if (playerTurn == Values.WHITE) {
             playerTurn = Values.BLACK;
